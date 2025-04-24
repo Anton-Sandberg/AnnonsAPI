@@ -35,6 +35,8 @@ namespace AnnonsAPI
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI(options =>
+                      options.SwaggerEndpoint("/openapi/v1.json", "Annons API"));
             }
 
             app.UseHttpsRedirection();
