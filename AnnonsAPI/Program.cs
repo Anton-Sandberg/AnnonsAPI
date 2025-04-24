@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace AnnonsAPI
 {
     public class Program
@@ -13,7 +15,16 @@ namespace AnnonsAPI
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddTransient<DataInitializer>();
+
             var app = builder.Build();
+
+            using var scope = app.Services.CreateScope();
+            var dataInitializer = scope.ServiceProvider.GetRequiredService<DataInitializer>();
+            dataInitializer.Migrate();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
