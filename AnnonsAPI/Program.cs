@@ -20,6 +20,11 @@ namespace AnnonsAPI
 
             builder.Services.AddTransient<DataInitializer>();
 
+            builder.Services.AddAutoMapper(config =>
+            {
+                config.AddProfile<MappingProfile>();
+            });
+
             var app = builder.Build();
 
             using var scope = app.Services.CreateScope();
