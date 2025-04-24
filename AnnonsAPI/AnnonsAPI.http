@@ -1,0 +1,6 @@
+@AnnonsAPI_HostAddress = http://localhost:5159
+
+GET {{AnnonsAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
